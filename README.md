@@ -1,6 +1,7 @@
 # mittsu-cr
 
-TODO: Write a description here
+3D Graphics Library for Crystal.
+It is a fork 3D Graphics Library for Ruby (https://github.com/jellymann/mittsu).
 
 ## Installation
 
