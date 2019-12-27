@@ -1,0 +1,9 @@
+name: mittsu-cr
+version: 0.1.0
+
+authors:
+  - viachpaliy <viachpaliy@ukr.net>
+
+crystal: 0.32.0
+
+license: MIT
