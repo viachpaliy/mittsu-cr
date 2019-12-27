@@ -1,9 +1,20 @@
 name: mittsu-cr
 version: 0.1.0
+description: 3D Graphics Library for Crystal
+dependencies:
+  glfw:
+    github: jellymann/crystal_glfw
+  opengl:
+    gitlab: arctic-fox/opengl.cr
+    branch: gl-4.6-core
+  stumpy_png:
+    github: stumpycr/stumpy_png
+    version: "~> 4.5"
 
 authors:
+  - Daniel Smith <jellymann@gmail.com>
   - viachpaliy <viachpaliy@ukr.net>
-
+  
 crystal: 0.32.0
 
 license: MIT
