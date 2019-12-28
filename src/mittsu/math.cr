@@ -1,4 +1,4 @@
-#require "./math/box2"
+require "./math/box2"
 #require "./math/box3"
 #require "./math/color"
 #require "./math/color_keywords"

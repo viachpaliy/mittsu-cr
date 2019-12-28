@@ -1,9 +1,10 @@
 module Mittsu
   class Vector
     property :elements, :uv, :index
-
+    getter :dimensions
     def initialize(elements : Array(Float64))
       @elements = elements
+      @dimensions = Int32.new(@elements.size)
     end
 
     def set(elements : Array(Float64))
@@ -12,21 +13,21 @@ module Mittsu
     end
 
     def each_dimension
-      self.class.DIMENSIONS.times do |i|
+      @dimensions.times do |i|
         yield i
       end
     end
 
     def []=(index, value)
-      index = self.class.ELEMENTS[index] if index.is_a?(Symbol)
-      raise IndexError if index.nil? || index < 0 || index >= self.class.DIMENSIONS
-      @elements[index] = value
+      if (index >= 0 & index < @dimensions) 
+        @elements[index] = value
+      end
     end
 
     def [](index)
-      index = self.class.ELEMENTS[index] if index.is_a?(Symbol)
-      raise IndexError if index.nil? || index < 0 || index >= self.class.DIMENSIONS
-      @elements[index]
+      if (index >= 0 & index < @dimensions)
+        @elements[index]
+      end
     end
 
     def copy(v)
@@ -246,7 +247,7 @@ module Mittsu
     
 
     def clone
-      self.class.new(*@elements)
+      self.class.new(@elements)
     end
 
     def to_s

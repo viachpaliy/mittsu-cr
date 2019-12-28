@@ -2,9 +2,7 @@ require "./vector"
 
 module Mittsu
   class Vector3 < Vector
-    ELEMENTS = { x: 0, y: 1, z: 2 }
-    DIMENSIONS = ELEMENTS.count
-
+    
     def initialize(x = 0, y = 0, z = 0)
       super [x.to_f, y.to_f, z.to_f]
     end
