@@ -1,2 +1,2 @@
 
-require "mittsu/math"
+require "./mittsu/math"

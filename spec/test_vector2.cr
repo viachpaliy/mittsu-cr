@@ -1,4 +1,4 @@
-require "../src/mittsu/math/vector2"
+require "../src/mittsu"
 require "spec"
 
 describe Mittsu::Vector2 do
