@@ -35,8 +35,8 @@ module Mittsu
     end
 
     def make_empty
-      @min.x = @min.y = Float::INFINITY
-      @max.x = @max.y = - Float::INFINITY
+      @min.x = @min.y = Float64::INFINITY
+      @max.x = @max.y = - Float64::INFINITY
       self
     end
 
