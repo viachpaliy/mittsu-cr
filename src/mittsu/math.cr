@@ -1,7 +1,7 @@
 require "./math/box2"
 require "./math/box3"
 require "./math/color"
-#require "./math/color_keywords"
+require "./math/color_keywords"
 #require "./math/euler"
 #require "./math/frustum"
 #require "./math/line3"

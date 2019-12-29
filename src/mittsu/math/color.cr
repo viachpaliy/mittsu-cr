@@ -74,12 +74,20 @@ module Mittsu
       end
       # #ff0000
       if /^\#([0-9a-f]{6})$/i =~ style
-        self.set_hex($1.hex)
+        hb = $1.hexbytes
+        self.r = hb[0]
+        self.g = hb[1]
+        self.b = hb[2]
+        #self.set_hex($1.hex)
         return self
       end
       # #f00
       if /^\#([0-9a-f])([0-9a-f])([0-9a-f])$/i =~ style
-        self.set_hex(($1 + $1 + $2 + $2 + $3 + $3).hex)
+        hb = ($1 + $1 + $2 + $2 + $3 + $3).hexbytes
+        self.r = hb[0]
+        self.g = hb[1]
+        self.b = hb[2]
+        #self.set_hex(($1 + $1 + $2 + $2 + $3 + $3).hex)
         return self
       end
       # red
