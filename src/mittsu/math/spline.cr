@@ -7,7 +7,7 @@ module Mittsu
 
     def initialize(points)
       @points = points
-      @c = []
+      @c = [] of Int32
       @v3 = Point.new(0.0, 0.0, 0.0)
     end
 
@@ -52,7 +52,7 @@ module Mittsu
       point, int_point, old_int_point = 0, 0, 0
       old_position = Mittsu::Vector3.new
       tmp_vec = Mittsu::Vector3.new
-      chunk_lengths = []
+      chunk_lengths = [] of Float64
       total_length = 0
 
       # first point has 0 length
@@ -85,7 +85,7 @@ module Mittsu
     end
 
     def reparametrize_by_arc_length(sampling_coef)
-      new_points = []
+      new_points = [] of Mittsu::Vector3
       tmp_vec = Mittsu::Vector3.new
       sl = self.length
 
