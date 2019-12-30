@@ -12,8 +12,7 @@ dependencies:
     version: "~> 4.5"
 
 authors:
-  - Daniel Smith <jellymann@gmail.com>
-  - viachpaliy <viachpaliy@ukr.net>
+   - viachpaliy <viachpaliy@ukr.net>
   
 crystal: 0.32.0
 

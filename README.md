@@ -37,4 +37,5 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [viachpaliy](https://github.com/your-github-user) - creator and maintainer
+- [viachpaliy](https://github.com/viachpaliy) - creator and maintainer
+ 95% all code is taked from [Daniel Smith](https://github.com/jellymann)'s project without changes.

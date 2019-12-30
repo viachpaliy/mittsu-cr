@@ -1,5 +1,5 @@
 require "spec"
-require "../src/mittsu"
+require "../../src/mittsu"
 
 describe Mittsu::Quaternion do
   context "test_initialize" do

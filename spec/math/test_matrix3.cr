@@ -1,4 +1,4 @@
-require "../src/mittsu"
+require "../../src/mittsu"
 require "spec"
 
 describe Mittsu::Matrix3 do
