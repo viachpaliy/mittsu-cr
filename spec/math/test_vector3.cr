@@ -31,6 +31,9 @@ describe Mittsu::Vector3 do
       a.y.should eq(0.0)
       a.z.should eq(0.0)
     end
+  end
+  
+  
 
-  end 
+  
 end
