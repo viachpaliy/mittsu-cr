@@ -1,12 +1,12 @@
 module Mittsu
   class Clock
-    property :auto_start, :start_time, :old_time, :elapsed_time, :running
+    property auto_start : Bool, start_time : Time, old_time : Time, elapsed_time : Time::Span, running : Bool
 
     def initialize(auto_start = true)
       @auto_start = auto_start
-      @start_time = 0
-      @old_time = 0
-      @elapsed_time = 0
+      @elapsed_time = Time::Span::ZERO
+      @start_time = Time.utc
+      @old_time = @start_time
       @running = false
     end
 
@@ -33,7 +33,7 @@ module Mittsu
       end
       if @running
         new_time = Time.utc
-        diff = 0.001 * (new_time - @old_time)
+        diff = new_time - @old_time
         @old_time = new_time
         @elapsed_time += diff
       end

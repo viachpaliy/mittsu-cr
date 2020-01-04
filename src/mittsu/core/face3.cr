@@ -2,17 +2,19 @@ require "../math"
 
 module Mittsu
   class Face3
-    property :a, :b, :c, :normal, :vertex_normals, :color, :vertex_colors, :vertex_tangents, :material_index
+    property a : Mittsu::Vector3, b : Mittsu::Vector3, c : Mittsu::Vector3, normal : Mittsu::Vector3
+    property vertex_normals, color : Mittsu::Color, vertex_colors 
+    property vertex_tangents, material_index : Int32
 
-    def initialize(a, b, c, normal = nil, color = nil, material_index = nil)
+    def initialize(a, b, c, normal = nil , color = nil, material_index = nil)
       @a = a
       @b = b
       @c = c
       @normal = normal.is_a?(Vector3) ? normal : Mittsu::Vector3.new
-      @vertex_normals = normal.is_a?(Array) ? normal : []
+      @vertex_normals = [] of Mittsu::Vector3
       @color = color.is_a?(Color) ? color : Mittsu::Color.new
-      @vertex_colors = color.is_a?(Array) ? normal : []
-      @vertex_tangents = []
+      @vertex_colors = [] of Mittsu::Color
+      @vertex_tangents = [] of Mittsu::Vector3
       @material_index = material_index.nil? ? 0 : material_index
     end
 
