@@ -1,26 +1,32 @@
 require "uuid"
-require "./event_dispatcher"
+require "./buffer_attribute"
 
 module Mittsu
   class BufferGeometry
-    include EventDispatcher
 
-    DrawCall = Struct.new(:start, :count, :index)
+    @@id = 0   
+ 
+    class DrawCall
+      property start, count, index 
+      def initialize(@start : Int32, @count : Int32, @index : Int32)
+      end
+    end
+   
 
-    getter :id, :name, :type, :uuid, :attributes, :draw_calls, :bounding_box, :bounding_sphere
+    getter id : Int32, :name, :type, :uuid, :attributes, :draw_calls, :bounding_box, :bounding_sphere
 
     def initialize
       @id = (@@id ||= 1).tap { @@id += 1 }
 
       @uuid = UUID.random
 
-      @name = ''
-      @type = 'BufferGeometry'
+      @name = ""
+      @type = "BufferGeometry"
 
-      @attributes = {}
+      @attributes = {} of Symbol => BufferAttribute 
 
-      @draw_calls = []
-      @_listeners = {}
+      @draw_calls = [] of DrawCall
+ 
     end
 
     def keys
@@ -74,7 +80,7 @@ module Mittsu
       end
     end
 
-    def from_geometry(geometry, settings = {})
+    def from_geometry(geometry, settings = {} of Symbol => Bool)
       vertices = geometry.vertices
       faces = geometry.faces
       face_vertex_uvs = geometry.face_vertex_uvs
@@ -147,7 +153,7 @@ module Mittsu
       end
 
       if @bounding_box.min.x.nan? || @bounding_box.min.y.nan? || @bounding_box.min.z.nan?
-        puts 'ERROR: Mittsu::BufferGeometry#compute_bounding_box: Computed min/max have NaN values. The "position" attribute is likely to have NaN values.'
+        puts "ERROR: Mittsu::BufferGeometry#compute_bounding_box: Computed min/max have NaN values. The position attribute is likely to have NaN values."
       end
     end
 
@@ -182,7 +188,7 @@ module Mittsu
         @bounding_sphere.radius = Math.sqrt(max_radius_sq)
 
         if @bounding_radius.nan?
-          puts 'ERROR: Mittsu::BufferGeometry#computeBoundingSphere: Computed radius is NaN. The "position" attribute is likely to have NaN values.'
+          puts "ERROR: Mittsu::BufferGeometry#computeBoundingSphere: Computed radius is NaN. The position attribute is likely to have NaN values."
         end
       end
     end
@@ -274,7 +280,7 @@ module Mittsu
       # (per vertex tangents)
 
       if [:index, :position, :normal, :uv].any { |s| !@attributes.has_key?}
-        puts 'WARNING: Mittsu::BufferGeometry: Missing required attributes (index, position, normal or uv) in BufferGeometry#computeTangents'
+        puts "WARNING: Mittsu::BufferGeometry: Missing required attributes (index, position, normal or uv) in BufferGeometry#computeTangents"
         return
       end
 
@@ -290,7 +296,8 @@ module Mittsu
       end
 
       tangents = self[:tangent].array
-      tan1 = []; tan2 = []
+      tan1 = [] of Mittsu::Vector3
+      tan2 = [] of Mittsu::Vector3
 
       n_vertices.times do |k|
         tan1[k] = Mittsu::Vector3.new
@@ -507,7 +514,7 @@ module Mittsu
 
             vertex_map[vid] = new_vid
             rev_vertex_map[new_vid] = vid
-            sorted_indices [index_ptr] = new_vid - offset.index # XXX: overflows at 16bit
+            #sorted_indices [index_ptr] = new_vid - offset.index # XXX: overflows at 16bit
             index_ptr += 1
             offset.count += 1
           end
@@ -556,7 +563,7 @@ module Mittsu
       normals = self[:normal].array
 
       normals.each_slice(3).with_index do |normal, i|
-        x, y, z = *normal
+        x, y, z = normal
 
         n = 1.0 / Math.sqrt(x * x + y * y + z * z)
 
@@ -574,7 +581,7 @@ module Mittsu
     # vertexCount - Amount of total vertices considered in this reordering (in case you want to grow the vertice stack).
     def reorder_buffers(index_buffer, index_map, vertex_count)
       # Create a copy of all attributes for reordering
-      sorted_attributes = {}
+      sorted_attributes = {} of Symbol => Mittsu::BufferAttribute
       @attributes.each do |key, attribute|
         next if key == :index
         source_array = attribute.array
@@ -608,13 +615,13 @@ module Mittsu
       output = {
         metadata: {
           version: 4.0,
-          type: 'BufferGeometry',
-          generator: 'BufferGeometryExporter'
+          type: "BufferGeometry",
+          generator: "BufferGeometryExporter"
         },
         uuid: @uuid,
         type: @type,
         data: {
-          attributes: {}
+          attributes: {} of Symbol => BufferAttribute
         }
       }
 

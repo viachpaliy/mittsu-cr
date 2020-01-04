@@ -11,7 +11,7 @@ module Mittsu
     end
 
     def start
-      @start_time = Time.now
+      @start_time = Time.utc
       @old_time = @start_time
       @running = true
     end
@@ -32,7 +32,7 @@ module Mittsu
         self.start
       end
       if @running
-        new_time = Time.now
+        new_time = Time.utc
         diff = 0.001 * (new_time - @old_time)
         @old_time = new_time
         @elapsed_time += diff

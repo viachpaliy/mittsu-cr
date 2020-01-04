@@ -4,9 +4,8 @@ description: 3D Graphics Library for Crystal
 dependencies:
   glfw:
     github: jellymann/crystal_glfw
-  opengl:
-    gitlab: arctic-fox/opengl.cr
-    branch: gl-4.6-core
+  lib_gl:
+    github: jellymann/crystal_lib_gl
   stumpy_png:
     github: stumpycr/stumpy_png
     version: "~> 4.5"
